@@ -1,0 +1,19 @@
+server:
+  servlet:
+    context-path: /content
+  port: 63040
+spring:
+  application:
+    name: content
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/xcp_content
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+

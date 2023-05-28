@@ -10,9 +10,14 @@
     <name>xuecheng-plus</name>
     <modules>
         <module>xuecheng-plus-generator</module>
+        <module>xuecheng-plus-content</module>
+        <module>xuecheng-plus-base</module>
     </modules>
 
     <properties>
+        <java.version>17</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>3.1.0</spring-boot.version>
@@ -20,14 +25,12 @@
         <spring-cloud-alibaba.version>2022.0.0.0-RC2</spring-cloud-alibaba.version>
         <org.projectlombok.version>1.18.28</org.projectlombok.version>
         <fastjson2.version>2.0.32</fastjson2.version>
-        <druid-spring-boot-starter.version>1.2.18</druid-spring-boot-starter.version>
         <mysql-connector-j.version>8.0.33</mysql-connector-j.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <minio.version>8.5.3</minio.version>
         <xxl-job-core.version>2.4.0</xxl-job-core.version>
-        <swagger-spring-boot-starter.version>1.9.0.RELEASE</swagger-spring-boot-starter.version>
         <hutool.version>5.8.16</hutool.version>
-        <springfox-swagger.version>3.0.0</springfox-swagger.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.1.0</springdoc-openapi-starter-webmvc-ui.version>
     </properties>
 
     <dependencyManagement>
@@ -61,15 +64,9 @@
             </dependency>
             <!-- fastjson ，json解析工具 -->
             <dependency>
-                <groupId>com.alibaba</groupId>
+                <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
-            </dependency>
-            <!-- druid 连接池管理 -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid-spring-boot-starter.version}</version>
             </dependency>
 
             <!-- mySQL数据库驱动包管理 -->
@@ -118,9 +115,9 @@
                 <version>${okhttp.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${springfox-swagger.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
