@@ -14,7 +14,7 @@ import java.util.Collections;
  */
 public class App {
     public static void main(String[] args) {
-        FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3306/xcp_content", "root", "123456")
+        FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3306/xcp_system", "root", "123456")
                 .globalConfig(builder -> {
                     builder.author("Suave") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
@@ -32,24 +32,13 @@ public class App {
                 }))
                 .packageConfig(builder -> {
                     builder.parent("com.suave") // 设置父包名
-                            .moduleName("") // 设置父包模块名
+                            .moduleName("system") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, System.getProperty("user.dir") + "/xuecheng-plus-generator/src/main/resources/mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
                     // 设置需要生成的表名
                     builder.addInclude(Arrays.asList(
-                                    "course_audit",
-                                    "course_base",
-                                    "course_category",
-                                    "course_market",
-                                    "course_publish",
-                                    "course_publish_pre",
-                                    "course_teacher",
-                                    "mq_message",
-                                    "mq_message_history",
-                                    "teachplan",
-                                    "teachplan_media",
-                                    "teachplan_work"
+                                    "dictionary"
                             ))
                             .addTablePrefix("")
                             // 实体类配置

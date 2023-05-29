@@ -7,15 +7,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>xuecheng-plus-content</artifactId>
+    <artifactId>xuecheng-plus-system</artifactId>
     <packaging>jar</packaging>
 
-    <name>xuecheng-plus-content</name>
+    <name>xuecheng-plus-system</name>
 
     <properties>
-        <java.version>17</java.version>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
