@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.suave.content.entity.CourseCategory;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 课程分类 Mapper 接口
@@ -15,4 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CourseCategoryMapper extends BaseMapper<CourseCategory> {
 
+    List<CourseCategory> queryTreeNodes(String id);
 }
