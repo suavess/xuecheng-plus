@@ -6,11 +6,13 @@ import com.suave.content.dto.AddCourseDTO;
 import com.suave.content.dto.QueryCourseDTO;
 import com.suave.content.entity.CourseBase;
 import com.suave.content.service.ICourseBaseService;
-import com.suave.content.vo.AddCourseVO;
+import com.suave.content.vo.CourseInfoVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +40,15 @@ public class CourseBaseController {
 
     @Operation(summary = "新增课程")
     @PostMapping("/course")
-    public AddCourseVO add(@RequestBody @Valid AddCourseDTO addCourseDTO) {
+    public CourseInfoVO add(@RequestBody @Valid AddCourseDTO addCourseDTO) {
         Long companyId = 1232141425L;
         return courseBaseService.createCourseBase(companyId, addCourseDTO);
+    }
+
+    @Operation(summary = "根据课程id查询")
+    @GetMapping("/course/{courseId}")
+    public CourseInfoVO getById(@PathVariable Long courseId) {
+        return courseBaseService.getCourseInfo(courseId);
     }
 
 }

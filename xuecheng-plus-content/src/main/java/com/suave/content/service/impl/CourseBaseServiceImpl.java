@@ -14,7 +14,7 @@ import com.suave.content.entity.CourseMarket;
 import com.suave.content.mapper.CourseBaseMapper;
 import com.suave.content.mapper.CourseMarketMapper;
 import com.suave.content.service.ICourseBaseService;
-import com.suave.content.vo.AddCourseVO;
+import com.suave.content.vo.CourseInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,8 +56,8 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
 
     @Override
     @Transactional
-    public AddCourseVO createCourseBase(Long companyId, AddCourseDTO addCourseDTO) {
-        AddCourseVO result = new AddCourseVO();
+    public CourseInfoVO createCourseBase(Long companyId, AddCourseDTO addCourseDTO) {
+        CourseInfoVO result = new CourseInfoVO();
         CourseBase courseBase = BeanUtil.copyProperties(addCourseDTO, CourseBase.class);
         courseBase.setCompanyId(companyId);
         courseBase.setCreateDate(LocalDateTime.now());
@@ -86,5 +86,15 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         } else {
             return courseMarketMapper.updateById(courseMarket);
         }
+    }
+
+    @Override
+    public CourseInfoVO getCourseInfo(Long courseId) {
+        CourseInfoVO result = new CourseInfoVO();
+        CourseBase courseBase = getById(courseId);
+        CourseMarket courseMarket = courseMarketMapper.selectById(courseId);
+        BeanUtil.copyProperties(courseBase, result);
+        BeanUtil.copyProperties(courseMarket, result);
+        return result;
     }
 }

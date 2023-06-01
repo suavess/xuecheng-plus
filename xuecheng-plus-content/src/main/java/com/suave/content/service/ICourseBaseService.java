@@ -6,7 +6,7 @@ import com.suave.base.vo.PageVO;
 import com.suave.content.dto.AddCourseDTO;
 import com.suave.content.dto.QueryCourseDTO;
 import com.suave.content.entity.CourseBase;
-import com.suave.content.vo.AddCourseVO;
+import com.suave.content.vo.CourseInfoVO;
 
 /**
  * <p>
@@ -26,5 +26,7 @@ public interface ICourseBaseService extends IService<CourseBase> {
      */
     PageVO<CourseBase> queryCourseBaseList(PageDTO pageDTO, QueryCourseDTO queryCourseDTO);
 
-    AddCourseVO createCourseBase(Long companyId, AddCourseDTO addCourseDTO);
+    CourseInfoVO createCourseBase(Long companyId, AddCourseDTO addCourseDTO);
+
+    CourseInfoVO getCourseInfo(Long courseId);
 }

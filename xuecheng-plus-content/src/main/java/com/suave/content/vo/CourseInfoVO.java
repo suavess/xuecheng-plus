@@ -10,7 +10,7 @@ import lombok.ToString;
  */
 @ToString
 @Data
-public class AddCourseVO extends CourseBase {
+public class CourseInfoVO extends CourseBase {
 
     /**
      * 收费规则，对应数据字典
