@@ -3,8 +3,10 @@ package com.suave.content.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.suave.base.dto.PageDTO;
 import com.suave.base.vo.PageVO;
+import com.suave.content.dto.AddCourseDTO;
 import com.suave.content.dto.QueryCourseDTO;
 import com.suave.content.entity.CourseBase;
+import com.suave.content.vo.AddCourseVO;
 
 /**
  * <p>
@@ -23,4 +25,6 @@ public interface ICourseBaseService extends IService<CourseBase> {
      * @return 返回结果
      */
     PageVO<CourseBase> queryCourseBaseList(PageDTO pageDTO, QueryCourseDTO queryCourseDTO);
+
+    AddCourseVO createCourseBase(Long companyId, AddCourseDTO addCourseDTO);
 }
