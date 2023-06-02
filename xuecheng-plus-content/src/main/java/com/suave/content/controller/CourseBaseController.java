@@ -3,6 +3,7 @@ package com.suave.content.controller;
 import com.suave.base.dto.PageDTO;
 import com.suave.base.vo.PageVO;
 import com.suave.content.dto.AddCourseDTO;
+import com.suave.content.dto.EditCourseDTO;
 import com.suave.content.dto.QueryCourseDTO;
 import com.suave.content.entity.CourseBase;
 import com.suave.content.service.ICourseBaseService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +47,13 @@ public class CourseBaseController {
     public CourseInfoVO add(@RequestBody @Valid AddCourseDTO addCourseDTO) {
         Long companyId = 1232141425L;
         return courseBaseService.createCourseBase(companyId, addCourseDTO);
+    }
+
+    @Operation(summary = "修改课程")
+    @PutMapping
+    public CourseInfoVO edit(@RequestBody @Valid EditCourseDTO editCourseDTO) {
+        Long companyId = 1232141425L;
+        return courseBaseService.editCourseBase(companyId, editCourseDTO);
     }
 
     @Operation(summary = "根据课程id查询")

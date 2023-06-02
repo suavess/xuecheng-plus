@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.suave.base.dto.PageDTO;
 import com.suave.base.vo.PageVO;
 import com.suave.content.dto.AddCourseDTO;
+import com.suave.content.dto.EditCourseDTO;
 import com.suave.content.dto.QueryCourseDTO;
 import com.suave.content.entity.CourseBase;
 import com.suave.content.vo.CourseInfoVO;
@@ -29,4 +30,6 @@ public interface ICourseBaseService extends IService<CourseBase> {
     CourseInfoVO createCourseBase(Long companyId, AddCourseDTO addCourseDTO);
 
     CourseInfoVO getCourseInfo(Long courseId);
+
+    CourseInfoVO editCourseBase(Long companyId, EditCourseDTO editCourseDTO);
 }

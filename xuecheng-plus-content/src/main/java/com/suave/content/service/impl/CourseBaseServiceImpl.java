@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suave.base.dto.PageDTO;
+import com.suave.base.exception.XCPException;
 import com.suave.base.vo.PageVO;
 import com.suave.content.dto.AddCourseDTO;
+import com.suave.content.dto.EditCourseDTO;
 import com.suave.content.dto.QueryCourseDTO;
 import com.suave.content.entity.CourseBase;
 import com.suave.content.entity.CourseMarket;
@@ -96,5 +98,22 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         BeanUtil.copyProperties(courseBase, result);
         BeanUtil.copyProperties(courseMarket, result);
         return result;
+    }
+
+    @Override
+    public CourseInfoVO editCourseBase(Long companyId, EditCourseDTO editCourseDTO) {
+        CourseBase existEntity = baseMapper.selectById(editCourseDTO.getId());
+        if (Objects.isNull(existEntity)) {
+            throw new XCPException("课程不存在");
+        }
+        if (!Objects.equals(existEntity.getCompanyId(), companyId)) {
+            throw new XCPException("修改课程非当前机构");
+        }
+        BeanUtil.copyProperties(editCourseDTO, existEntity);
+        existEntity.setChangeDate(LocalDateTime.now());
+        if (baseMapper.updateById(existEntity) < 0) {
+            throw new XCPException("更新失败！");
+        }
+        return getCourseInfo(editCourseDTO.getId());
     }
 }
