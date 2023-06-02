@@ -27,16 +27,15 @@ public class CourseCategoryServiceImpl extends ServiceImpl<CourseCategoryMapper,
     public List<Tree<String>> queryTreeNodes(String id) {
         List<CourseCategory> courseCategoryList = baseMapper.queryTreeNodes(id);
         TreeNodeConfig treeNodeConfig = new TreeNodeConfig();
-        treeNodeConfig.setIdKey("id");
         treeNodeConfig.setParentIdKey("parentid");
         treeNodeConfig.setChildrenKey("childrenTreeNodes");
         treeNodeConfig.setWeightKey("orderby");
-        return TreeUtil.build(courseCategoryList, "1", treeNodeConfig, (treeNode, tree) -> {
-            tree.setId(treeNode.getId());
-            tree.setParentId(treeNode.getParentid());
-            tree.setWeight(treeNode.getOrderby());
-            tree.setName(treeNode.getName());
-            tree.putExtra("label", treeNode.getName());
+        return TreeUtil.build(courseCategoryList, "1", treeNodeConfig, (obj, treeNode) -> {
+            treeNode.setId(obj.getId());
+            treeNode.setParentId(obj.getParentid());
+            treeNode.setWeight(obj.getOrderby());
+            treeNode.setName(obj.getName());
+            treeNode.putExtra("label", obj.getName());
         });
     }
 }

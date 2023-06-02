@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,26 +28,27 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Tag(name = "课程信息接口")
+@RequestMapping("/course")
 public class CourseBaseController {
 
     @Autowired
     private ICourseBaseService courseBaseService;
 
     @Operation(summary = "课程查询接口")
-    @PostMapping("/course/list")
+    @PostMapping("/list")
     public PageVO<CourseBase> list(PageDTO pageDTO, @RequestBody QueryCourseDTO queryCourseDTO) {
         return courseBaseService.queryCourseBaseList(pageDTO, queryCourseDTO);
     }
 
     @Operation(summary = "新增课程")
-    @PostMapping("/course")
+    @PostMapping
     public CourseInfoVO add(@RequestBody @Valid AddCourseDTO addCourseDTO) {
         Long companyId = 1232141425L;
         return courseBaseService.createCourseBase(companyId, addCourseDTO);
     }
 
     @Operation(summary = "根据课程id查询")
-    @GetMapping("/course/{courseId}")
+    @GetMapping("/{courseId}")
     public CourseInfoVO getById(@PathVariable Long courseId) {
         return courseBaseService.getCourseInfo(courseId);
     }
