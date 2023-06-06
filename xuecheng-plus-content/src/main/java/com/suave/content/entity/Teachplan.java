@@ -54,7 +54,7 @@ public class Teachplan implements Serializable {
     private String timelength;
 
     @Schema(title = "排序字段")
-    private Integer orderby;
+    private Long orderby;
 
     @Schema(title = "课程标识")
     private Long courseId;
