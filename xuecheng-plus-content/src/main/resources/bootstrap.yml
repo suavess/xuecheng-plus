@@ -1,0 +1,30 @@
+#server:
+#  servlet:
+#    context-path: /content
+#  port: 63040
+spring:
+  application:
+    name: content
+  #  datasource:
+  #    url: jdbc:mysql://127.0.0.1:3306/xcp_content
+  #    username: root
+  #    password: 123456
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #  mvc:
+  #    pathmatch:
+  #      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      discovery:
+        namespace: dev
+        group: xuecheng-plus
+      config:
+        namespace: dev
+        group: xuecheng-plus
+        file-extension: yml
+  profiles:
+    active: dev
+#mybatis-plus:
+#  configuration:
+#    map-underscore-to-camel-case: true
