@@ -14,6 +14,7 @@
         <module>xuecheng-plus-base</module>
         <module>xuecheng-plus-system</module>
         <module>xuecheng-plus-gateway</module>
+        <module>xuecheng-plus-media</module>
     </modules>
 
     <properties>
@@ -31,8 +32,11 @@
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <minio.version>8.5.3</minio.version>
         <xxl-job-core.version>2.4.0</xxl-job-core.version>
+        <okhttp.version>4.11.0</okhttp.version>
         <hutool.version>5.8.16</hutool.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.1.0</springdoc-openapi-starter-webmvc-ui.version>
+        <minio.version>8.5.3</minio.version>
+        <forest.version>1.5.31</forest.version>
     </properties>
 
     <dependencyManagement>
@@ -121,6 +125,19 @@
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dtflys.forest</groupId>
+                <artifactId>forest-spring-boot3-starter</artifactId>
+                <version>${forest.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
