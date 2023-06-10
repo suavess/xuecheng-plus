@@ -70,5 +70,9 @@
             <groupId>com.dtflys.forest</groupId>
             <artifactId>forest-spring-boot3-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-crypto</artifactId>
+        </dependency>
     </dependencies>
 </project>
