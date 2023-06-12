@@ -35,14 +35,14 @@ import java.io.IOException;
 public class MediaFilesController {
 
     @Autowired
-    private IMediaFilesService mediaFileService;
+    private IMediaFilesService mediaFilesService;
 
 
     @Operation(summary = "媒资列表查询接口")
     @PostMapping("/files")
     public PageVO<MediaFiles> list(PageDTO pageParams, @RequestBody QueryMediaParamsDto queryMediaParamsDto) {
         Long companyId = 1232141425L;
-        return mediaFileService.queryMediaFiels(companyId, pageParams, queryMediaParamsDto);
+        return mediaFilesService.queryMediaFiels(companyId, pageParams, queryMediaParamsDto);
     }
 
     @Operation(summary = "上传图片")
@@ -64,6 +64,6 @@ public class MediaFilesController {
         String localFilePath = tempFile.getAbsolutePath();
 
         // 调用service上传图片
-        return mediaFileService.uploadFile(companyId, uploadFileDTO, localFilePath);
+        return mediaFilesService.uploadFile(companyId, uploadFileDTO, localFilePath);
     }
 }
