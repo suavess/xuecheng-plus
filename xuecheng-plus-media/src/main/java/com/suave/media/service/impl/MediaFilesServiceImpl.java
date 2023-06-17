@@ -142,7 +142,6 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
             log.debug("上传文件到minio成功,bucket:{},objectName:{}", bucket, objectName);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("上传文件出错,bucket:{},objectName:{},错误信息:", bucket, objectName, e);
         }
         return false;
