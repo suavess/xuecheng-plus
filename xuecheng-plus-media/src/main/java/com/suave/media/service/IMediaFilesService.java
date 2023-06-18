@@ -9,6 +9,8 @@ import com.suave.media.dto.UploadFileDTO;
 import com.suave.media.entity.MediaFiles;
 import com.suave.media.vo.UploadFileVO;
 
+import java.io.File;
+
 /**
  * <p>
  * 媒资信息 服务类
@@ -32,4 +34,17 @@ public interface IMediaFilesService extends IService<MediaFiles> {
     RestResponse<Boolean> uploadChunk(String fileMd5, int chunk, String localFilePath);
 
     RestResponse<Boolean> mergechunks(long companyId, String fileMd5, int chunkTotal, UploadFileDTO uploadFileDTO);
+
+    File downloadFileFromMinIO(String bucket, String objectName);
+
+    /**
+     * 将文件上传到minio
+     *
+     * @param localFilePath 文件本地路径
+     * @param mimeType      媒体类型
+     * @param bucket        桶
+     * @param objectName    对象名
+     * @return 是否成功
+     */
+    boolean addMediaFilesToMinIO(String localFilePath, String mimeType, String bucket, String objectName);
 }

@@ -1,6 +1,8 @@
 package com.suave.media.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -45,6 +47,7 @@ public class MediaProcess implements Serializable {
     private String status;
 
     @Schema(name = "上传时间")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDate;
 
     @Schema(name = "完成时间")
@@ -55,4 +58,9 @@ public class MediaProcess implements Serializable {
 
     @Schema(name = "失败原因")
     private String errormsg;
+
+    /**
+     * 失败次数
+     */
+    private int failCount;
 }
