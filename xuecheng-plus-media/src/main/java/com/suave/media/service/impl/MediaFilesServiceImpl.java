@@ -15,7 +15,9 @@ import com.suave.base.vo.RestResponse;
 import com.suave.media.dto.QueryMediaParamsDto;
 import com.suave.media.dto.UploadFileDTO;
 import com.suave.media.entity.MediaFiles;
+import com.suave.media.entity.MediaProcess;
 import com.suave.media.mapper.MediaFilesMapper;
+import com.suave.media.mapper.MediaProcessMapper;
 import com.suave.media.service.IMediaFilesService;
 import com.suave.media.vo.UploadFileVO;
 import io.minio.ComposeObjectArgs;
@@ -56,6 +58,9 @@ import java.util.stream.Stream;
 @Slf4j
 @Service("mediaFilesService")
 public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFiles> implements IMediaFilesService {
+
+    @Autowired
+    private MediaProcessMapper mediaProcessMapper;
 
     @Autowired
     private MinioClient minioClient;
@@ -190,11 +195,35 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
                 log.debug("向数据库保存文件失败,bucket:{},objectName:{}", bucket, objectName);
                 return null;
             }
+            // 添加到待处理任务表
+            addWaitingTask(mediaFiles);
             return mediaFiles;
 
         }
         return mediaFiles;
 
+    }
+
+    /**
+     * 添加待处理任务
+     *
+     * @param mediaFiles 媒资文件信息
+     */
+    private void addWaitingTask(MediaFiles mediaFiles) {
+        // 文件名称
+        String filename = mediaFiles.getFilename();
+        // 文件扩展名
+        String extension = filename.substring(filename.lastIndexOf("."));
+        // 文件mimeType
+        String mimeType = FileUtil.getMimeType(extension);
+        // 如果是avi视频添加到视频待处理表
+        if (mimeType.equals("video/x-msvideo")) {
+            MediaProcess mediaProcess = new MediaProcess();
+            BeanUtils.copyProperties(mediaFiles, mediaProcess);
+            mediaProcess.setStatus("1");// 未处理
+            mediaProcess.setFailCount(0);// 失败次数默认为0
+            mediaProcessMapper.insert(mediaProcess);
+        }
     }
 
     @Override
