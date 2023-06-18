@@ -6,15 +6,21 @@ import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.suave.base.exception.XCPException;
+import com.suave.content.dto.BindTeachPlanMediaDTO;
 import com.suave.content.dto.SaveTeachPlanDTO;
 import com.suave.content.entity.Teachplan;
+import com.suave.content.entity.TeachplanMedia;
 import com.suave.content.mapper.TeachplanMapper;
+import com.suave.content.mapper.TeachplanMediaMapper;
 import com.suave.content.service.ITeachplanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -28,6 +34,10 @@ import java.util.List;
 @Tag(name = "教学计划接口")
 @Service("teachplanService")
 public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan> implements ITeachplanService {
+
+    @Autowired
+    private TeachplanMediaMapper teachplanMediaMapper;
+
     @Override
     public List<Tree<Long>> getTreeNodes(Long courseId) {
         LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
@@ -81,5 +91,34 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
         queryWrapper.eq(Teachplan::getCourseId, courseId);
         queryWrapper.eq(Teachplan::getParentid, parentId);
         return baseMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+    public TeachplanMedia associationMedia(BindTeachPlanMediaDTO bindTeachPlanMediaDTO) {
+        // 教学计划id
+        Long teachplanId = bindTeachPlanMediaDTO.getTeachplanId();
+        Teachplan teachplan = baseMapper.selectById(teachplanId);
+        if (teachplan == null) {
+            throw new XCPException("教学计划不存在");
+        }
+        Integer grade = teachplan.getGrade();
+        if (grade != 2) {
+            throw new XCPException("只允许第二级教学计划绑定媒资文件");
+        }
+        // 课程id
+        Long courseId = teachplan.getCourseId();
+
+        // 先删除原来该教学计划绑定的媒资
+        teachplanMediaMapper.delete(new LambdaQueryWrapper<TeachplanMedia>().eq(TeachplanMedia::getTeachplanId, teachplanId));
+
+        // 再添加教学计划与媒资的绑定关系
+        TeachplanMedia teachplanMedia = new TeachplanMedia();
+        teachplanMedia.setCourseId(courseId);
+        teachplanMedia.setTeachplanId(teachplanId);
+        teachplanMedia.setMediaFilename(bindTeachPlanMediaDTO.getFileName());
+        teachplanMedia.setMediaId(bindTeachPlanMediaDTO.getMediaId());
+        teachplanMedia.setCreateDate(LocalDateTime.now());
+        teachplanMediaMapper.insert(teachplanMedia);
+        return teachplanMedia;
     }
 }

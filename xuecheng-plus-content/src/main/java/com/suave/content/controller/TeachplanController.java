@@ -1,6 +1,7 @@
 package com.suave.content.controller;
 
 import cn.hutool.core.lang.tree.Tree;
+import com.suave.content.dto.BindTeachPlanMediaDTO;
 import com.suave.content.dto.SaveTeachPlanDTO;
 import com.suave.content.service.ITeachplanService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,6 +42,12 @@ public class TeachplanController {
     @PostMapping
     public void saveTeachPlan(@RequestBody SaveTeachPlanDTO saveTeachPlanDTO) {
         teachplanService.saveTeachPlan(saveTeachPlanDTO);
+    }
+
+    @Operation(summary = "课程计划和媒资信息绑定")
+    @PostMapping("/association/media")
+    public void associationMedia(@RequestBody BindTeachPlanMediaDTO bindTeachPlanMediaDTO) {
+        teachplanService.associationMedia(bindTeachPlanMediaDTO);
     }
 
 }

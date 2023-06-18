@@ -2,8 +2,10 @@ package com.suave.content.service;
 
 import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.suave.content.dto.BindTeachPlanMediaDTO;
 import com.suave.content.dto.SaveTeachPlanDTO;
 import com.suave.content.entity.Teachplan;
+import com.suave.content.entity.TeachplanMedia;
 
 import java.util.List;
 
@@ -20,4 +22,6 @@ public interface ITeachplanService extends IService<Teachplan> {
     List<Tree<Long>> getTreeNodes(Long courseId);
 
     void saveTeachPlan(SaveTeachPlanDTO saveTeachPlanDTO);
+
+    TeachplanMedia associationMedia(BindTeachPlanMediaDTO bindTeachPlanMediaDTO);
 }
